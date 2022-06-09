@@ -1,13 +1,13 @@
 # SnakeGame
 一个Python &amp; Pygame开发的贪吃蛇小游戏
 
-#### 联机版使用flask框架进行交互
+### 联机版使用flask框架进行交互
 
-#### flask主要用于获取和储存累计得分
+### flask主要用于获取和储存累计得分
 
 ------
 
-#### Flask基本安装方法：
+### Flask基本安装方法：
 
 1. 打开powershall
 2. cd到SnakeUsers文件夹 cd C:\SnakeUsers
