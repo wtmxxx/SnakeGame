@@ -86,7 +86,7 @@ def user_submit():
     if __name__ == '__main__':
         window.fill((229, 231, 206))
         fonts_mid((False, 200), '稍等', font_source, True, (32, 45, 82), 25)
-        url = 'http://39.105.170.197:5000/login'
+        url = 'http://127.0.0.1:5000/login'
         data = {'username': un}
         r = requests.post(url, data=data)
         # 打印响应时间单位s
@@ -240,7 +240,7 @@ while True:
 
         pygame.display.update()
         try:
-            url2 = 'http://39.105.170.197:5000/submit'
+            url2 = 'http://127.0.0.1:5000/submit'
             data2 = {'username': userinputs[0], 'score': score_int}
             r2 = requests.post(url2, data=data2)
             # 打印响应时间单位s
@@ -290,7 +290,7 @@ while True:
 
         if event.type == pygame.QUIT:
             try:
-                url2 = 'http://39.105.170.197:5000/submit'
+                url2 = 'http://127.0.0.1:5000/submit'
                 data2 = {'username': userinputs[0], 'score': score_int}
                 r2 = requests.post(url2, data=data2)
                 # 打印响应时间单位s

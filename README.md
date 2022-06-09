@@ -11,6 +11,8 @@
 
 注：联机版需要flask框架
 
+本文件夹中的SnakeUsers已安装好虚拟环境和Flask
+
 ------
 
 ### Flask基本安装方法：
