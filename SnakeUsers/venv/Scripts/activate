@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="F:\python学习\SnakeUsers\venv"
+VIRTUAL_ENV="G:\PythonStudy\SnakeGame\SnakeUsers\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -1,1 +1,2 @@
-{"username": "wotemo", "score": "666"}
+{"username": "wotemo", "score": "1366"}
+{"username": "satayous@proton.me", "score": "0"}

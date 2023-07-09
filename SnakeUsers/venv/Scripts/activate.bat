@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=F:\python学习\SnakeUsers\venv
+set VIRTUAL_ENV=G:\PythonStudy\SnakeGame\SnakeUsers\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
