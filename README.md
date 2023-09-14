@@ -13,6 +13,7 @@
 
 ### 注：
 * #### 最新一步到位联机版使用的是[Leancould](https://leancloud.app/)读写数据
+  #### 不懂Leancould的可以去百度一下
 * #### 联机版需要flask框架
 
 本文件夹中的SnakeUsers已安装好虚拟环境和Flask

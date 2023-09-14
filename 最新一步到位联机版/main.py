@@ -21,11 +21,7 @@ pygame.mixer.music.load('resources/bgmusic.mp3')
 pygame.mixer.music.play(-1)
 
 font_source = 'resources/君子怀旧仿宋体.ttf'
-print('本代码由沃特陌(Wotemo)编写，未经授权，严禁转载')
-print(' _      ______  ____________  _______')
-print('| | /| / / __ \/_  __/ __/  |/  / __ \\')
-print('| |/ |/ / /_/ / / / / _// /|_/ / /_/ /')
-print('|__/|__/\____/ /_/ /___/_/  /_/\____/')
+
 window.fill((229, 231, 206))
 pygame.display.flip()
 
@@ -85,94 +81,23 @@ userinputs = InputBox.main()
 window.fill((229, 231, 206))
 draw_bg()
 
-def create_user(username):
-    # 替换为您的appid和appkey
-    headers = {
-        'X-LC-Id': 'bf0o5ie2uZLSWGcDEuneCFEB-MdYXbMMI',
-        'X-LC-Key': 'XIch9T9F9YYtlJBvQkBTYO2A',
-        'Content-Type': 'application/json'
-    }
-
-    # 构建API请求URL
-    url = 'https://snakegame.wotemo.com/1.1/classes/Snakegame'
-
-    # 构建请求体
-    data = {
-        'user': username
-    }
-
-    # 发送POST请求
-    response = requests.post(url, headers=headers, json=data)
-
-    # 处理响应数据
-    if response.status_code == 201:
-        print(f"用户名'{username}'创建成功")
-    else:
-        print(f"未能创建用户名'{username}'")
-
-def get_score(username):
-    # 替换为您的appid和appkey
-    headers = {
-        'X-LC-Id': 'bf0o5ie2uZLSWGcDEuneCFEB-MdYXbMMI',
-        'X-LC-Key': 'XIch9T9F9YYtlJBvQkBTYO2A'
-    }
-    # 构建API请求URL
-    url = f'https://snakegame.wotemo.com/1.1/classes/Snakegame?where={{"user":"{username}"}}&keys=score'
-
-    # 发送GET请求
-    response = requests.get(url, headers=headers)
-
-    # 处理响应数据
-    if response.status_code == 200:
-        data = response.json()
-        if 'results' in data and len(data['results']) > 0:
-            score = data['results'][0]['score']
-            print(f"用户名为'{username}'的分数为: {score}")
-            return score
-        else:
-            create_user(userinputs[0])
-            print(f"用户名'{username}'无对应分数")
-            return 0
-    else:
-        print("未能获取分数")
-
-def update_score(username,new_score):
-    headers = {
-        'X-LC-Id': 'bf0o5ie2uZLSWGcDEuneCFEB-MdYXbMMI',
-        'X-LC-Key': 'XIch9T9F9YYtlJBvQkBTYO2A',
-        'Content-Type': 'application/json'
-    }
-
-    # 构建API请求URL
-    url = f'https://snakegame.wotemo.com/1.1/classes/Snakegame?where={{"user":"{username}"}}'
-
-    # 发送GET请求，获取用户记录的objectId
-    response = requests.get(url, headers=headers)
-    data = response.json()
-    if 'results' in data and len(data['results']) > 0:
-        object_id = data['results'][0]['objectId']
-
-        # 构建更新请求URL
-        update_url = f'https://snakegame.wotemo.com/1.1/classes/Snakegame/{object_id}'
-
-        # 构建请求体
-        data = {
-            'score': new_score
-        }
-
-        # 发送PUT请求，更新分数值
-        update_response = requests.put(update_url, headers=headers, json=data)
-
-        # 处理响应数据
-        if update_response.status_code == 200:
-            print(f"用户名为 '{username}'的分数更新成功！！！")
-        else:
-            print(f"未能更新用户名为'{username}'的分数！")
-    else:
-        print(f"用户名'{username}'未创建")
+def user_submit():
+    un = userinputs[0]
+    if __name__ == '__main__':
+        window.fill((229, 231, 206))
+        fonts_mid((False, 200), '稍等', font_source, True, (32, 45, 82), 25)
+        url = 'http://127.0.0.1:5000/login'
+        data = {'username': un}
+        r = requests.post(url, data=data)
+        # 打印响应时间单位s
+        r_time = r.elapsed.microseconds / 1000000
+        # 打印响应结果
+        r_text = r.text
+        print(f'你的分数为：{r_text} 用时：{r_time}')
+        return r.text
 
 try:
-    score_int = get_score(userinputs[0])
+    score_int = int(user_submit())
     pygame.time.wait(600)
 except:
     score_int = 0
@@ -315,8 +240,14 @@ while True:
 
         pygame.display.update()
         try:
-            update_score(userinputs[0],score_int)
-            print(f'你的最终分数为：{score_int}')
+            url2 = 'http://127.0.0.1:5000/submit'
+            data2 = {'username': userinputs[0], 'score': score_int}
+            r2 = requests.post(url2, data=data2)
+            # 打印响应时间单位s
+            r2_time = r2.elapsed.microseconds / 1000000
+            # 打印响应结果
+            r2_text = r2.text
+            print(f'你的最终分数为：{r2_text} 用时：{r2_time}')
         except:
             pass
         pygame.time.wait(7500)
@@ -359,8 +290,14 @@ while True:
 
         if event.type == pygame.QUIT:
             try:
-                update_score(userinputs[0], score_int)
-                print(f'你的最终分数为：{score_int}')
+                url2 = 'http://127.0.0.1:5000/submit'
+                data2 = {'username': userinputs[0], 'score': score_int}
+                r2 = requests.post(url2, data=data2)
+                # 打印响应时间单位s
+                r2_time = r2.elapsed.microseconds / 1000000
+                # 打印响应结果
+                r2_text = r2.text
+                print(f'你的最终分数为：{r2_text} 用时：{r2_time}')
             except:
                 pass
             exit()
